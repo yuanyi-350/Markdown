@@ -17,7 +17,7 @@ def frac_simp(line : str) -> str:
             continue
         end = brace_pair[start]
         content = line[start+1: end]
-        if re.match(r"(\w|" + escaped_greek + r")",content):
+        if re.match(r"^(\w|" + escaped_greek + r")$",content):
             content = "\1" + content + "\0"
             line = line[:start] + content + line[end + 1:]
     line = re.sub("\1", "", line)
