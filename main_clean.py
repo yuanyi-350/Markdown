@@ -1,4 +1,4 @@
-from brace_simp import brace_simp, brace_pair_pos
+from brace_simp import brace_simp
 from frac_simp import frac_simp
 
 def replace_latex_symbols(input_str: str) -> str:
@@ -32,10 +32,8 @@ def main_clean(filename):
     length_cnt = 0
 
     for i, line in enumerate(lines):
-        list_line = list(line)
-        brace_pair = brace_pair_pos(list_line)
-        brace_simp(list_line, brace_pair)
-        lines[i] = frac_simp(list_line, brace_pair).rstrip()+"\n"
+        line = brace_simp(line)
+        lines[i] = frac_simp(line).rstrip()+"\n"
         length_cnt += len(lines[i])
 
     print(length_cnt)

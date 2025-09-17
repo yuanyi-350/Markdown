@@ -1,4 +1,6 @@
-greek_letters_with_slash : set[str] = {
+import re
+
+greek_letters_with_slash : list[str] = [
     r"\alpha", r"\beta", r"\gamma", r"\delta", r"\varepsilon", r"\zeta", r"\eta", r"\theta",
     r"\iota", r"\kappa", r"\lambda", r"\mu", r"\nu", r"\xi", r"\omicron", r"\pi", r"\rho",
     r"\sigma", r"\tau", r"\upsilon", r"\phi", r"\chi", r"\psi", r"\omega",
@@ -6,14 +8,13 @@ greek_letters_with_slash : set[str] = {
     r"\Iota", r"\Kappa", r"\Lambda", r"\Mu", r"\Nu", r"\Xi", r"\Omicron", r"\Pi", r"\Rho",
     r"\Sigma", r"\Tau", r"\Upsilon", r"\Phi", r"\Chi", r"\Psi", r"\Omega",
     r"\infty", r"\partial", r"\times"
-}
+]
 
-def brace_simp(line : list, brace_pair : dict) -> list:
-    for x, y in brace_pair.items():
-        if (line[x - 1] == "_" or line[x - 1] == "^") and \
-            ((x and y and y - x == 2) or "".join(line[x + 1:y]) in greek_letters_with_slash):
-            line[x], line[y] = "\0", "\0" if (line[y + 1] == " " or "}" or ")") else " "
-    return [c for c in line if c != "\0"]
+escaped_greek = "|".join(re.escape(s) for s in greek_letters_with_slash)
+
+def brace_simp(line : str):
+    pattern = r"(_|\^)(?:\s*){(.|" + escaped_greek + r")}"
+    return re.sub(pattern, r"\1\2", line)
 
 def brace_pair_pos(line : str | list) -> dict:
     open_brace, brace_pair = [], {}
