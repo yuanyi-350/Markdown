@@ -16,8 +16,8 @@ def replace_latex_symbols(input_str: str) -> str:
                   r"\mid" : r"|", r"^{\prime}" : r"'", r"\leqslant": r"\le", r"\geqslant": r"\ge",
                   r"\ldots":r"\cdots", r"^{\prime \prime}" : r"''",
                   # arrows
-                  r"\Rightarrow" : r"\implies", r"\Longleftrightarrow": r"\iff",
-                  r"\rightarrow": r"\to", r"\Leftrightarrow" : r"\iff"}
+                  r"\Longrightarrow" : r"\implies", r"\Rightarrow" : r"\implies",
+                  r"\Longleftrightarrow": r"\iff", r"\rightarrow": r"\to", r"\Leftrightarrow" : r"\iff"}
     for old, new in correspond.items():
         input_str = input_str.replace(old, new)
     return input_str

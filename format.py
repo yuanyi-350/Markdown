@@ -29,12 +29,12 @@ def main():
 
 command = main()
 filename = input()
+if filename[0] == '"':
+    filename = filename[1:-1]
 
 if command == "main_clean":
     main_clean(filename)
-
 elif command == "style":
     style(filename, start, end)
-
 else:
     left(filename, start, end)
