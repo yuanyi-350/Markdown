@@ -5,6 +5,10 @@
 https://djcgihkpzx.feishu.cn/docx/WtBodvJKooOfuVxVNuxc5aixn3f
 非正版Typora的下载网址，亲测有效
 
+## [Mathpix](https://mathpix.com/)
+
+数学公式OCR : https://mathpix.com/
+
 ## Markdown自动补全
 
 [VIM+LaTeX 自动补全 - 简书](https://www.jianshu.com/p/720b369dd583)
@@ -35,15 +39,49 @@ endsnippet
 
 这个例子会在数学环境内, 自动将 `\R` 展开成为 `\mathbb{R}`
 
-相比于原来的 HyperSnips, 最大特点是, 它只会在数学环境 `$...$`, `$$...$$`, `\(...\)` 和 `\[...\]` 中自动展开!
+相比于原来的 HyperSnips, 最大特点是, 它只会在数学环境 `$...$`, `$$...$$`, `\(...\)` 和 `\[...\]` 中自动展开
 
 ##### 特别的注意点
 
-原文件考前有一句`end global`不要忽略
+原文件靠前有一句`end global`不要忽略
 
-` `` `中用`\\`展示`"\"` , 在`snippet`首行用`\`展示`"\"`
+` `` ` 用于正则表达式匹配, 例如其中用 `\\` 展示 `"\"`  , 而在`snippet`首行用`\`展示`"\"`
 
-## [Markdown_Format](https://www.zhihu.com/question/276209281/answer/3045412944)
+还例如 `(?<!\\)lim` 是正则表达式的零宽断言, 首先验证是否是 `"\"`, 若不是方才继续匹配 `lim` , 即不匹配已经被转义的 `\lim`
+
+例如 `\\[Mm]c` 表示 `\Mc` 和 `\mc` 命令都可以匹配. 
+
+## Markdown2Latex
+
+参见Github项目 [md2tex](https://github.com/lankoestee/md2tex), 其中使用说明很完备
+
+不过转Latex的模板如下
+
+```latex
+\documentclass{ctexart} % 支持ctexart, article
+\usepackage{subcaption,hyperref,booktabs, amsmath,graphicx}
+% 上面是必要的包
+
+\usepackage{amssymb} % 或者使用 amsfonts
+\newcommand{\R}{\mathbb{R}}
+
+
+\begin{document}
+
+% ----- begin md -----
+
+% 中间这部分内容将会被舍去
+% 在begin md和end md之外的内容可以进行更改以达到你满意的排版格式
+
+% ----- end md -----
+
+\bibliographystyle{ieeetr}
+\clearpage
+\bibliography{reference}
+\end{document}
+```
+
+## [Markdown_Text](https://www.zhihu.com/question/276209281/answer/3045412944)
 
 #####标题
 
@@ -176,6 +214,16 @@ $\text{\textcolor{blue}{蓝色}}$
 
 
 
+##### 高亮
+
+```latex
+<mark>黑碧玺</mark>		==黑碧玺==
+```
+
+<mark>黑碧玺</mark>		==黑碧玺==
+
+
+
 ##### 超链接
 
 ```markdown
@@ -183,6 +231,22 @@ $\text{\textcolor{blue}{蓝色}}$
 ```
 
 [北大树洞](https://treehole.pku.edu.cn/web/)
+
+
+
+#####表格
+
+```markdown
+| Header 1 | Header 2 | Header 3 |
+| -------- | -------- | -------- |
+|          |          |          |
+```
+
+| Header 1 | Header 2 | Header 3 |
+| -------- | -------- | -------- |
+|          |          |          |
+
+Ctrl + Enter 加行 
 
 
 
@@ -194,35 +258,115 @@ $\text{\textcolor{blue}{蓝色}}$
 
 <div STYLE="page-break-after: always;"></div>
 
-##Markdown_Sheet
+## Markdown_Latex
 
-```markdown
-| Header 1 | Header 2 | Header 3 |
+##### 字体
+
+```latex
+$\ell$
+$\N$	$\Q$	$\R$	$\C$
+$\mathcal{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
+$\mathscr{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
+$\mathfrak{a b c d e f g h i j k l m n o p q r s u v w x y z}$
+$\mathfrak{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
 ```
 
-| Header 1 | Header 2 | Header 3 |
-| -------- | -------- | -------- |
-|          |          |          |
+ $\ell$
 
-Ctrl + Enter 加行 
+$\N$	$\Q$	$\R$	$\C$ (并不需要用`\mathbb{N}`)
 
+$\mathcal{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
 
+$\mathscr{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
 
-## Markdown_MathMode
+$\mathfrak{a b c d e f g h i j k l m n o p q r s u v w x y z}$
+
+$\mathfrak{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
 
 ##### 空格
 
 ```latex
-$1\ 2$ $1\quad2$ $1\qquad2$
+$a_1\ a_2$ $a_1\quad a_2$ $a_1\qquad a_2$
 ```
 
-output : $1\ 2$
+$a_1\ a_2$
 
-​	       $1\quad2$
+$a_1\quad a_2$
 
-​	       $1\qquad2$
+$a_1\qquad a_2$
+
+##### 换行
+
+```latex
+$a_1 \\[1ex] a_2$
+$a_1 \\ a_2$
+```
+
+$a_1\\[1ex]
+a_2$	$a_1\\
+a_2$
+
+##### 左右括号
+
+```latex
+$\displaystyle\vert \frac{e^x+e^{-x}}2 \vert$
+$\displaystyle\left\vert \frac{e^x+e^{-x}}2 \right\vert$
+```
+
+$\displaystyle\vert \frac{e^x+e^{-x}}2 \vert$	$\displaystyle\left\vert \frac{e^x+e^{-x}}2 \right\vert$
+
+##### Big Operator以及下标
+
+```latex
+$\lim\limits_{x\rightarrow0}$
+$\sum\limits_{i=1}^{n}$
+$\frac12$
+%% beter format :
+$\displaystyle\sum_{i=1}^{n}$
+$\displaystyle\int_a^b$
+$\dfrac12$
+$\lim_{\substack{a \to -\infty \\ b \to +\infty}} F(a, b)$
+```
+
+$\lim\limits_{x\to0}$		$\sum\limits_{i=1}^{n}$		$\displaystyle\sum_{i=1}^{n}$		$\displaystyle\int_a^b$		$\dfrac12$		$\lim_{\substack{a \to -\infty \\ b \to +\infty}} F(a, b)$
+
+其实不需要用`\displaystyle`, Typora编译器可以简写为
+
+```latex
+$\sum_{i= 1}^n\\$
+$\int_a^b\\$
+```
+
+$\sum_{i= 1}^n\\$		$\int_a^b\\$
+
+##### 等号
+
+```latex
+$\overset{\text{容斥原理}}=$
+$\xlongequal{\text{容斥原理}}$
+```
+
+$$\overset{\textbf{容斥原理}}=$$		$\xlongequal{\textbf{容斥原理}}$
+
+##### 根号
+
+```latex
+$\sqrt[3]{2}$
+```
+
+$\sqrt[3]{2}$
+
+##### 方框
+
+```latex
+$\boxed{1}$
+```
+
+$\boxed{1}$
 
 
+
+## Markdown_Mathmode
 
 ##### 公式等号对齐
 
@@ -241,8 +385,6 @@ $$
 & = 6
 \end{align*}
 $$
-
-
 
 ##### 公式等号对齐且居于左侧
 
@@ -263,8 +405,6 @@ $$
 & = 6&
 \end{flalign}
 $$
-
-
 
 ##### 多重对齐
 
@@ -292,17 +432,13 @@ $$
 \end{flalign}
 $$
 
-
-
 ##### 文字
 
 ```latex
 $\textsf{墨可}$墨可
 ```
 
-$\textsf{墨可}$墨可
-
-
+$\textsf{墨可}$ 墨可
 
 ##### 注释
 
@@ -316,88 +452,67 @@ $$
 e^{i\pi}+1 = 0
 $$
 
-
-
-## Markdown_Latex
-
-##### 左右括号
-
-```latex
-$\displaystyle\vert \frac{e^x+e^{-x}}2 \vert$
-$\displaystyle\left\vert \frac{e^x+e^{-x}}2 \right\vert$
-```
-
-$\displaystyle\vert \frac{e^x+e^{-x}}2 \vert$	$\displaystyle\left\vert \frac{e^x+e^{-x}}2 \right\vert$
-
-
-
-##### Big Operator下标
-
-```latex
-$\lim\limits_{x\rightarrow0}$
-$\sum\limits_{i=1}^{n}$
-$\frac12$
-%% beter format :
-$\displaystyle\sum_{i=1}^{n}$
-$\displaystyle\int_a^b$
-$\dfrac12$
-```
-
-$\lim\limits_{x\rightarrow0}$		$\sum\limits_{i=1}^{n}$		$\displaystyle\sum_{i=1}^{n}$		$\displaystyle\int_a^b$		$\dfrac12$
-
-
-
-##### 数域
-
-```latex
-$\N$	$\Q$	$\R$	$\C$
-$\mathcal{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
-$\mathscr{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
-```
-
-$\N$	$\Q$	$\R$	$\C$ (并不需要用`\mathbb{N}`)
-
-$\mathcal{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
-
-$\mathscr{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}$
-
-
-
 ##### 矩阵
 
 ```latex
-$$\begin{bmatrix}
+\begin{bmatrix}
 {a_{11}}&{a_{12}}&{\cdots}&{a_{1n}}\\
 {a_{21}}&{a_{22}}&{\cdots}&{a_{2n}}\\
 {\vdots}&{\vdots}&{\ddots}&{\vdots}\\
 {a_{m1}}&{a_{m2}}&{\cdots}&{a_{mn}}\\
-\end{bmatrix}$$
+\end{bmatrix}
 ```
 
-$$\begin{bmatrix}
+$$
+\begin{bmatrix}
 {a_{11}}&{a_{12}}&{\cdots}&{a_{1n}}\\
 {a_{21}}&{a_{22}}&{\cdots}&{a_{2n}}\\
 {\vdots}&{\vdots}&{\ddots}&{\vdots}\\
 {a_{m1}}&{a_{m2}}&{\cdots}&{a_{mn}}\\
-\end{bmatrix}$$
+\end{bmatrix}
+$$
 
-- 横省略号：`\cdots`
-- 竖省略号：`\vdots`
-- 斜省略号：`\ddots`
-- `pmatrix`：小括号边框
-- `bmatrix`：中括号边框
-- `vmatrix`：单竖线边框
-
-
-
-##### 方程组
+- 横省略号：`\cdots` ; 竖省略号：`\vdots` ; 斜省略号：`\ddots`
+- `pmatrix`：小括号边框 ; `bmatrix`：中括号边框 ; `vmatrix`：单竖线边框
 
 ```latex
-$$\begin{cases}
+\left(\begin{array}{cc}
+1 & 0 \\
+0 & I_{n - 1} \\
+\end{array}\right)
+```
+
+$$
+\left(\begin{array}{cc}
+1 & 0 \\
+0 & I_{n - 1} \\
+\end{array}\right)
+$$
+
+```latex
+\left(\begin{array}{c|c}
+1 & 0 \\
+\hline
+0 & I_{n - 1} \\
+\end{array}\right)
+```
+
+$$
+\left(\begin{array}{c|c}
+1 & 0 \\
+\hline
+0 & I_{n - 1} \\
+\end{array}\right)
+$$
+
+##### 分段函数
+
+```latex
+\begin{cases}
 a_1x+b_1y+c_1z=d_1\\
 a_2x+b_2y+c_2z=d_2\\
 a_3x+b_3y+c_3z=d_3\\
-\end{cases}$$
+\end{cases}
 ```
 
 $\begin{cases}
@@ -406,45 +521,35 @@ a_2x+b_2y+c_2z=d_2\\
 a_3x+b_3y+c_3z=d_3\\
 \end{cases}$
 
-
-
-##### 方框
+##### 下括号
 
 ```latex
-$$\boxed{1}$$
+\underbrace{a_1 + a_2 + \cdots + a_n}_{\text{共计 $n$ 项}}
 ```
 
-$$\boxed{1}$$
-
-
-
-##### 等号
-
-```latex
-$\overset{\text{容斥原理}}=$
-$\xlongequal{\text{容斥原理}}$
-```
-
-$$\overset{\textbf{容斥原理}}=$$		$\xlongequal{\textbf{容斥原理}}$
-
-
-
-
-
-
+$$
+\underbrace{a_1 + a_2 + \cdots + a_n}_{\text{共计 $n$ 项}}
+$$
 
 ## Markdown_Graph
+
+##### 逻辑关系
+
+```latex
+$\implies$		$\impliedby$		$\iff$
+```
+
+$\implies$		$\impliedby$		$\iff$
 
 ##### 文本单箭头
 
 ```latex
 $A \xrightarrow[\text{below}]{\text{above}} B$		$A \xRightarrow{\text{above}} B$		
 $\overset{\sim}{\longmapsto}$		一致收敛 : $\rightrightarrows$
+$\twoheadrightarrow$		$\hookrightarrow$
 ```
 
-$A \xrightarrow[\text{below}]{\text{above}} B$			$A \xRightarrow{\text{above}} B$			$\overset{\sim}{\longmapsto}$			一致收敛 : $\rightrightarrows$
-
-
+$A \xrightarrow[\text{below}]{\text{above}} B$			$A \xRightarrow{\text{above}} B$			$\overset{\sim}{\longmapsto}$			一致收敛 : $\rightrightarrows$			$\twoheadrightarrow$			$\hookrightarrow$
 
 ##### 斜向箭头
 

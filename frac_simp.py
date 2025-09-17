@@ -1,26 +1,26 @@
-import re
-
 from brace_simp import greek_letters_with_slash
 
-def frac_pos(line_s: str) -> list:
-    return [match.start() for match in re.finditer(r"frac", line_s)]
+def frac_pos(char_list: list[str]) -> list[int]:
+    res = []
+    for i in range(len(char_list) - 3):
+        if char_list[i:i + 4] == ['f', 'r', 'a', 'c']:
+            res.append(i)
+    return res
 
-def is_num(s : str):
-    return len(s) == 1 and s.isdigit()
+def is_num(s : list):
+    return len(s) == 1 and s[0].isdigit()
 
-def frac_simp(line_s : str, brace_pair : dict) -> str:
-    line = list(line_s)
-    for index in frac_pos(line_s):
+def frac_simp(line : list[str], brace_pair : dict) -> str:
+    for index in frac_pos(line):
         start, end = index + 4, -1
-        content1 = ""
         if start in brace_pair:
             end = brace_pair[start]
-            content1 = line_s[start + 1: end]
-
+            content1 = line[start + 1: end]
             if is_num(content1):
                 line[start], line[end] = "\0", "\0"
-            elif content1 in greek_letters_with_slash:
-                line[start], line[end] = "\0", "\0" if line[end + 1] == r"{" or "\\" or " " else " "
+            elif "".join(content1) in greek_letters_with_slash:
+                line[start] = "\0"
+                line[end] = "\0" if line[end + 1] in {"{", "\\", " ", r"}", ")", "(", "$"} else " "
 
         elif line[start].isdigit():
             end = start
@@ -30,12 +30,14 @@ def frac_simp(line_s : str, brace_pair : dict) -> str:
         start = end + 1
         if start not in brace_pair: continue
         end = brace_pair[start]
-        content2 = line_s[start + 1: end]
+        content2 = line[start + 1: end]
 
         valid_cond = ( (is_num(content1) and len(content2) == 1)
-                        or (content2 in greek_letters_with_slash)
+                        or ("".join(content2) in greek_letters_with_slash)
                         or is_num(content2) )
 
         if valid_cond:
-            line[start], line[end] = "\0", "\0" if line[end + 1] == " " else " "
+            line[start] = "\0"
+            line[end] = "\0" if line[end + 1] in {"{", "\\", " ", r"}", ")", "(", "$"} else " "
+
     return "".join(c for c in line if c != "\0")
