@@ -1,0 +1,534 @@
+global
+// JavaScript code
+function gen_matrix(nrow, ncol) {
+    let results = "\n";
+    let order = 1;
+
+    // 遍历每一行
+    for (let i = 0; i < nrow; i++) {
+        // 遍历每一列（除了最后一列）
+        for (let j = 0; j < ncol - 1; j++) {
+            results += "$" + (order).toString() + " & ";
+            order++;
+        }
+        // 添加最后一个元素，并结束当前行
+        results += "$" + (order).toString() + " \\\\" + "\\" + "\n";
+        order++;
+    }
+    return results;
+}
+
+endglobal
+
+snippet `\\(b|p|v)mat([1-9]{1})` "matrix" iiAm
+\\begin{``rv = m[1]``matrix}``
+	rv = gen_matrix(m[2],m[2]);
+``\\end{``rv = m[1]``matrix}$0
+endsnippet
+
+snippet \dag "dagger" iAm
+{}^\dagger 
+endsnippet
+
+snippet \^t "^T" iAm
+{}^t
+endsnippet
+
+snippet \rk "rank" iAm
+\operatorname{rank}
+endsnippet
+
+snippet \Im "image" iAm
+\operatorname{im}
+endsnippet
+
+snippet \coker "coker" iAm
+\operatorname{coker}
+endsnippet
+
+snippet \Tr "Trace" iAm
+\operatorname{Tr}
+endsnippet
+
+snippet \Hom "Hom" iAm
+\operatorname{Hom}(${1}, )
+endsnippet
+
+snippet \Aut "Aut" iAm
+\operatorname{Aut}
+endsnippet
+
+snippet \Gal "Gal" iAm
+\operatorname{Gal}
+endsnippet
+
+snippet \Inv "Inv" iAm
+\operatorname{Inv}
+endsnippet
+
+snippet \rad "radical" iAm
+\operatorname{rad}
+endsnippet
+
+snippet \spec "spec" iAm
+\operatorname{spec}
+endsnippet
+
+
+
+
+
+#format
+
+snippet \dis "displaystyle" iA
+\displaystyle
+endsnippet
+
+snippet \lm "limits" iA
+\limits
+endsnippet
+
+snippet \opr "operatorname" iA
+\operatorname{$1}
+endsnippet
+
+snippet \tx "text" iA
+\text{${1:${VISUAL}}}
+endsnippet
+
+snippet \col "color Red" iA
+\color{Red}
+endsnippet
+
+snippet <font> "color Red" iA
+<font : color = Red>**${1:${VISUAL}}**</font>
+endsnippet
+
+snippet <u> "underline" iA
+<u>${VISUAL}</u>
+endsnippet
+
+snippet <sorry> "sorry" iA
+<mark>sorry</mark>
+endsnippet
+
+snippet @) "left( right)" Aim
+\left( ${1:${VISUAL}} \right) $0
+endsnippet
+
+snippet @| "left| right|" Aim
+\left| ${1:${VISUAL}} \right| $0
+endsnippet
+
+snippet @.| "left| right|" Aim
+\left. ${1:${VISUAL}} \right| $0
+endsnippet
+
+priority 100
+snippet @} "left\{ right\}" Aim
+\left\\{ ${1:${VISUAL}} \right\\} $0
+endsnippet
+
+snippet @> "leftangle rightangle" iAm
+\left< ${1:${VISUAL}} \right>$0
+endsnippet
+
+snippet @\| "left right" iA
+\left\| ${1:${VISUAL}} \right\|
+endsnippet
+
+snippet \( "big( big)" Aim
+\Big( ${1:${VISUAL}} \Big) $0
+endsnippet
+
+snippet \() "big( big)" Aim
+\Big( ${1:${VISUAL}} \Big) $0
+endsnippet
+
+snippet \{ "set" iA
+\\{ ${1:${VISUAL}} \\}
+endsnippet
+
+snippet \{} "set" iA
+\\{ ${1:${VISUAL}} \\}
+endsnippet
+
+snippet \qu "quad" iA
+\quad
+endsnippet
+
+snippet \qqu "qquad" iA
+\qquad
+endsnippet
+
+
+
+
+
+#alphabet
+
+snippet \a\t "alpha" iA
+\alpha
+endsnippet
+
+snippet \alp "alpha" iA
+\alpha
+endsnippet
+
+snippet \b\t "beta" iA
+\beta
+endsnippet
+
+snippet \Gb "beta" iA
+\beta
+endsnippet
+
+snippet \d\t "delta" iA
+\delta
+endsnippet
+
+snippet \Gd "delta" iA
+\delta
+endsnippet
+
+snippet \lam "lambda" iA
+\lambda
+endsnippet
+
+snippet \Gl "lambda" iA
+\lambda
+endsnippet
+
+snippet \pd "partial" iA
+\partial
+endsnippet
+
+snippet \nab "nabla" iA
+\nabla
+endsnippet
+
+snippet \e\t "epsilon" iA
+\varepsilon
+endsnippet
+
+snippet \ep "epsilon" iA
+\varepsilon
+endsnippet
+
+snippet \Ge "epsilon" iA
+\varepsilon
+endsnippet
+
+snippet \D\t "Delta" iA
+\Delta
+endsnippet
+
+snippet \G\t "Gamma" iA
+\Gamma
+endsnippet
+
+snippet \GG "Gamma" iA
+\Gamma
+endsnippet
+
+snippet \Gg "gamma" iA
+\gamma
+endsnippet
+
+snippet \om "omega" iA
+\omega
+endsnippet
+
+snippet \Om "Omega" iA
+\Omega
+endsnippet
+
+snippet \phi "phi" iA
+\varphi
+endsnippet
+
+snippet \s\t "sigma" iA
+\sigma
+endsnippet
+
+snippet \sg "sigma" iA
+\sigma
+endsnippet
+
+snippet \Gs "sigma" iA
+\sigma
+endsnippet
+
+snippet \S\t "Sigma" iA
+\Sigma
+endsnippet
+
+snippet \Sg "Sigma" iA
+\Sigma
+endsnippet
+
+snippet \th "theta" iAm
+\theta
+endsnippet
+
+
+
+snippet \Mb "mathbb" iAm
+\mathbb{$1}
+endsnippet
+
+snippet `\\[Mm]c` "mathcal" iAm
+\mathcal{${1:${VISUAL}}}
+endsnippet
+
+snippet \Mf "mathfrak" iAm
+\mathfrak{${1:${VISUAL}}}
+endsnippet
+
+snippet \Q "Rational" iA
+\mathbb{Q}
+endsnippet
+
+snippet \C "Complex" iA
+\mathbb{C}
+endsnippet
+
+snippet \F "Field" iA
+\mathbb{F}
+endsnippet
+
+snippet \inf "infty" iA
+\infty
+endsnippet
+
+snippet @pd "d/dx" iAm
+\frac{\partial ${1}}{\partial ${2}}
+endsnippet
+
+snippet \cd "cdot" iA
+\cdot
+endsnippet
+
+snippet \vd "vdots" iA
+\vdots
+endsnippet
+
+snippet \dd "ddots" iA
+\ddots
+endsnippet
+
+snippet \for "forall" iA
+\forall
+endsnippet
+
+snippet \ex "exist" iA
+\exist
+endsnippet
+
+snippet \Inf "inf" iA
+\inf
+endsnippet
+
+
+
+
+#Operator
+
+snippet \lim\t "sum" iA
+\lim_{${1} \to ${2}}
+endsnippet
+
+snippet \subst "substack" iA
+\substack{${1} \\\\ ${2}}
+endsnippet
+
+snippet \sum\t "sum" iA
+\sum_{${1} = 1}^{${2}}
+endsnippet
+
+snippet \cup\t "sum" iA
+\bigcup_{${1} = 1}^{${2}}
+endsnippet
+
+snippet \cap\t "sum" iA
+\bigcap_{${1} = 1}^{${2}}
+endsnippet
+
+snippet \/ "Fraction" iA
+\frac{${1:${VISUAL}}}{$2}$0
+endsnippet
+
+snippet \cir "circ" iA
+\circ
+endsnippet
+
+snippet \* "times" iA
+\times
+endsnippet
+
+snippet \o+ "oplus" iA
+\oplus
+endsnippet
+
+snippet \ox "otimes" iA
+\otimes
+endsnippet
+
+snippet \sq "sqrt" iA
+\sqrt{${1:${VISUAL}}}
+endsnippet
+
+snippet ^ "pow" iA
+^{$1}
+endsnippet
+
+snippet _ "underline" iA
+_{$1}
+endsnippet
+
+snippet \bar "bar" iA
+\bar{${1}}
+endsnippet
+
+snippet \ov "bar" iA
+\overline{${1}}
+endsnippet
+
+snippet \ovs "overset" iA
+\overset{}{${1:${VISUAL}}}
+endsnippet
+
+snippet \hat "widehat" iA
+\widehat{${1:${VISUAL}}}
+endsnippet
+
+snippet \~ "tilde" iA
+\widetilde{${1:${VISUAL}}}
+endsnippet
+
+snippet \vec "vec" iA
+\vec{${1:${VISUAL}}}
+endsnippet
+
+snippet @-- "\underline" iA
+\underline{${1:${VISUAL}}}
+endsnippet
+
+snippet @-} "\underbrace" iA
+\underbrace{${1:${VISUAL}}}_{\text{$2}}
+endsnippet
+
+snippet \| "norm" iA
+\|${1:${VISUAL}}\|
+endsnippet
+
+snippet \nin "notin" iA
+\notin
+endsnippet
+
+snippet \sub= "subseteq" iA
+\subseteq
+endsnippet
+
+snippet \sup= "supset" iA
+\supseteq
+endsnippet
+
+snippet \sups "supset" iA
+\supseteq
+endsnippet
+
+snippet \nsub "nsub" iA
+\nsubseteq
+endsnippet
+
+snippet \sm "setminus" iA
+\setminus
+endsnippet
+
+
+#arrows
+snippet \im "implies" iA
+\implies
+endsnippet
+
+snippet \=> "implies" iA
+\implies
+endsnippet
+
+snippet \<= "Longleftarrow" iA
+\impliedby
+endsnippet
+
+snippet \<- "leftarrow" iA
+\leftarrow
+endsnippet
+
+snippet \--> "longrightarrow" iA
+\longrightarrow
+endsnippet
+
+snippet \map "mapsto" iA
+\mapsto
+endsnippet
+
+snippet \|-> "mapsto" iA
+\mapsto
+endsnippet
+
+snippet \x-> "xrightarrow" iA
+\xrightarrow{${1:${VISUAL}}}
+endsnippet
+
+snippet \xmap "xmapsto" iA
+\xmapsto{${1:${VISUAL}}}
+endsnippet
+
+snippet \x|-> "xmapsto" iA
+\xmapsto{${1:${VISUAL}}}
+endsnippet
+
+snippet \x=> "xRightarrow" iA
+\xRightarrow{${1:${VISUAL}}}
+endsnippet
+
+snippet \x== "xlongequal" iA
+\xlongequal{${1:${VISUAL}}}
+endsnippet
+
+snippet \->> "twoheadrightarrow" iA
+\twoheadrightarrow
+endsnippet
+
+snippet \-2> "twoheadrightarrow" iA
+\twoheadrightarrow
+endsnippet
+
+snippet \x-2> "twoheadrightarrow" iA
+\xtwoheadrightarrow{${1:${VISUAL}}}
+endsnippet
+
+
+
+
+#environment
+
+snippet \case "cases" iAm
+\begin{cases}
+${1:${VISUAL}}\\\\
+\end{cases}
+endsnippet
+
+snippet \align "aligned" iAm
+\begin{aligned}
+${1:${VISUAL}}
+\end{aligned}
+endsnippet
+
+snippet \array "array" iAm
+\left( \begin{array}{l}
+${1} \\\\
+ \\\\
+ \\\\
+\end{array} \right)
+endsnippet
