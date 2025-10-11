@@ -339,6 +339,18 @@ $\int_a^b\\$
 
 $\sum_{i= 1}^n\\$		$\int_a^b\\$
 
+`tfrac` 作用 : 
+
+```latex
+$$
+\sin \frac{x}N \qquad \sin \tfrac{x}N
+$$
+```
+
+$$
+\sin \frac{x}N \qquad \sin \tfrac{x}N
+$$
+
 ##### 等号
 
 ```latex
