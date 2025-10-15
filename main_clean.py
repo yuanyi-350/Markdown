@@ -6,7 +6,8 @@ def replace_latex_symbols(input_str: str) -> str:
                   "（": "(", "）": ")", "，": ", ", "．": ".",
                   "。": ". ", "；": "; ", "＂": "\"", "：": ": ", "－": "-",
                   # number fields
-                  r"\mathbb{R}": r"\R", r"\boldsymbol{R}" : r"\R", r"\mathbb{Z}": r"\Z",
+                  r"\mathbf{R}": r"\R", r"\mathbb{R}": r"\R",
+                  r"\boldsymbol{R}" : r"\R", r"\mathbb{Z}": r"\Z",
                   # functions
                   r"\operatorname{Ker}" : r"\ker", r"\operatorname{Im}" : r"\operatorname{im}",
                   r"\operatorname{dim}" : r"\dim", r"\operatorname{ker}" : r"\ker",

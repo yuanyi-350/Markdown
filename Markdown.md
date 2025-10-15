@@ -368,6 +368,14 @@ $\sqrt[3]{2}$
 
 $\sqrt[3]{2}$
 
+##### 内点
+
+```latex
+$\mathring{A}$
+```
+
+$\mathring{A}$
+
 ##### 方框
 
 ```latex
