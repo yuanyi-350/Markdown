@@ -130,7 +130,7 @@ snippet @} "left\{ right\}" Aim
 endsnippet
 
 snippet @> "leftangle rightangle" iAm
-\left< ${1:${VISUAL}} \right>$0
+\lang ${1:${VISUAL}} \rang$0
 endsnippet
 
 snippet @\| "left right" iA
@@ -181,6 +181,10 @@ endsnippet
 
 snippet \Gb "beta" iA
 \beta
+endsnippet
+
+snippet \del "delta" iA
+\delta
 endsnippet
 
 snippet \d\t "delta" iA
@@ -297,6 +301,10 @@ snippet \F "Field" iA
 \mathbb{F}
 endsnippet
 
+snippet \H "Field" iA
+\mathbb{H}
+endsnippet
+
 snippet \inf "infty" iA
 \infty
 endsnippet
@@ -334,7 +342,7 @@ endsnippet
 
 #Operator
 
-snippet \lim\t "sum" iA
+snippet \lim\t "lim" iA
 \lim_{${1} \to ${2}}
 endsnippet
 
@@ -343,7 +351,7 @@ snippet \subst "substack" iA
 endsnippet
 
 snippet \sum\t "sum" iA
-\sum_{${1} = 1}^{${2}}
+\sum_{${1} = 1}^\infty
 endsnippet
 
 snippet \cup\t "sum" iA
