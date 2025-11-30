@@ -1,13 +1,13 @@
 from brace_simp import brace_simp
 from frac_simp import frac_simp
+import re
 
 def replace_latex_symbols(input_str: str) -> str:
     correspond = {# 中文标点 -> 英文标点
                   "（": "(", "）": ")", "，": ", ", "．": ".",
                   "。": ". ", "；": "; ", "＂": "\"", "：": ": ", "－": "-",
                   # number fields
-                  r"\mathbf{R}": r"\R", r"\mathbb{R}": r"\R",
-                  r"\boldsymbol{R}" : r"\R", r"\mathbb{Z}": r"\Z",
+                  r"\mathbf{R}": r"\R", r"\mathbb{R}": r"\R", r"\boldsymbol{R}" : r"\R", r"\mathbb{Z}": r"\Z",
                   # functions
                   r"\operatorname{Ker}" : r"\ker", r"\operatorname{Im}" : r"\operatorname{im}",
                   r"\operatorname{dim}" : r"\dim", r"\operatorname{ker}" : r"\ker",
@@ -18,18 +18,25 @@ def replace_latex_symbols(input_str: str) -> str:
                   r"\ldots":r"\cdots", r"^{\prime \prime}" : r"''",
                   # arrows
                   r"\Longrightarrow" : r"\implies", r"\Rightarrow" : r"\implies",
-                  r"\Longleftrightarrow": r"\iff", r"\rightarrow": r"\to", r"\Leftrightarrow" : r"\iff"}
+                  r"\Longleftrightarrow": r"\iff", r"\rightarrow": r"\to", r"\Leftrightarrow" : r"\iff",
+                  # \left< \right>
+                  r"\left\langle": r"\left<", r"\right\rangle": r"\right>"}
     for old, new in correspond.items():
         input_str = input_str.replace(old, new)
+    
+    re_sub = {r"(?<!~)\sd\s*x": r"~dx"}
+    for old, new in re_sub.items():
+        input_str = re.sub(old, new, input_str)
     return input_str
 
 def main_clean(filename):
     with open(filename, "r", encoding="utf-8") as file:
-        lines = [line for line in file]
-    print(sum(len(line) for line in lines), end = " -> ")
-    lines = [replace_latex_symbols(line) for line in lines]
-    print(sum(len(line) for line in lines), end = " -> ")
-
+        content = file.read()
+    
+    print(len(content), end = " -> ")
+    content = replace_latex_symbols(content)
+    
+    lines = list(content.split('\n'))
     length_cnt = 0
 
     for i, line in enumerate(lines):

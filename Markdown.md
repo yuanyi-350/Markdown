@@ -81,6 +81,12 @@ endsnippet
 \end{document}
 ```
 
+## 正则表达式
+
+对于 typora 和 vscode 编译器, 都支持正则表达式替换
+
+如果要使用诱捕组, 例如 `(\d)\.` 替换为 `**$1.**` 
+
 ## [Markdown_Text](https://www.zhihu.com/question/276209281/answer/3045412944)
 
 #####标题

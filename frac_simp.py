@@ -23,6 +23,6 @@ def frac_simp(line : str) -> str:
     line = re.sub("\1", "", line)
     line = re.sub("\0" + r"(?!\w)", "", line)
     line = re.sub("\0", " ", line)
+    line = re.sub(f"frac{pattern}{pattern}", r"frac\1\2", line)
     line = re.sub(f"frac{pattern}", r"frac\1", line)
-    line = re.sub(f"frac" + fr"(\d|{escaped_greek}){pattern}", r"frac\1\2", line)
     return line
